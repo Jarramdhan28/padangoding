@@ -5,7 +5,7 @@
 ])
 
 <div class="relative w-full">
-    <div class="flex items-center border border-gray-200/50 rounded-lg bg-gray-100 py-1.5 px-2">
+    <div class="flex items-center border border-gray-200/50 rounded-lg bg-gray-50 px-2">
         <div class="text-gray-400 hover:text-gray-700">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-5">
@@ -14,7 +14,7 @@
             </svg>
         </div>
         <input type="search" x-model.debounce.1000ms="{{ $model }}" @input="{{ $onInput }}"
-            class="w-full bg-transparent rounded-lg px-3 text-sm text-gray-600 placeholder:text-xs focus:outline-none focus:ring-0"
+            class="w-full bg-transparent rounded-lg px-3 border-0 text-sm text-gray-600 placeholder:text-xs focus:outline-none focus:ring-0"
             placeholder="{{ $placeholder }}">
     </div>
 </div>

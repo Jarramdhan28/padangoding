@@ -7,7 +7,7 @@
     'onNext' => 'fetchResults(page.currentPage + 1)',
 ])
 
-<div class="flex flex-col md:flex-row justify-between gap-4 mt-4 items-center" x-show="{{ $lastPage }} > 1">
+<div x-cloak class="flex flex-col md:flex-row justify-between gap-4 mt-4 items-center" x-show="{{ $lastPage }} > 1">
     <span class="text-sm text-gray-600">
         Menampilkan
         <span x-text="({{ $perPage }} * ({{ $currentPage }} - 1)) + 1"></span>

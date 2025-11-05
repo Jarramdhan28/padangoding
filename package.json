@@ -7,6 +7,8 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@tailwindcss/forms": "^0.5.10",
+        "@tailwindcss/typography": "^0.5.19",
         "@tailwindcss/vite": "^4.0.0",
         "axios": "^1.11.0",
         "concurrently": "^9.0.1",
@@ -16,6 +18,9 @@
     },
     "dependencies": {
         "@alpinejs/collapse": "^3.15.0",
-        "alpinejs": "^3.15.0"
+        "alpinejs": "^3.15.0",
+        "quill": "^2.0.3",
+        "reading-time-estimator": "^1.14.0",
+        "ziggy-js": "^2.6.0"
     }
 }

@@ -13,6 +13,7 @@ class CategoryService
         $validated = $request->validated();
         try {
             DB::beginTransaction();
+
             $filename = null;
             if ($request->hasFile('icon')) {
                 $icon = $request->file('icon');
@@ -20,19 +21,16 @@ class CategoryService
                 $icon->storeAS('icon/categories', $filename, 'public');
             }
 
-            $data = Category::create([
+            Category::create([
                 'name' => $validated['name'],
                 'icon' => $filename,
             ]);
-            DB::commit();
 
-            return response()->json([
-                'message' => 'success'
-            ]);
+            DB::commit();
+            return true;
         } catch (\Throwable $th) {
-            return response()->json([
-                'message' => 'error'
-            ]);
+            DB::rollBack();
+            return false;
         }
     }
 

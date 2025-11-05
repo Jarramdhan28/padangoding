@@ -7,6 +7,7 @@
 
 <body class="font-mona">
     {{ $slot }}
+
     <x-html.script />
 </body>
 

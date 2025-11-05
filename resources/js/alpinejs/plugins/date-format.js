@@ -17,4 +17,18 @@ export default function (Alpine) {
             return `${Math.floor(diff / 31536000)} tahun yang lalu`;
         };
     });
+
+    Alpine.magic("longDateFormat", () => {
+        return (tanggalString) => {
+            if (!tanggalString) return "-";
+            const tanggal = new Date(tanggalString);
+            if (isNaN(tanggal.getTime())) return "-";
+            return new Intl.DateTimeFormat("id-ID", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            }).format(tanggal);
+        };
+    });
 }

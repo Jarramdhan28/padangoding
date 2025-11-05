@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class ResponseHelper
 {
-    public static function sendResponse(bool $status, string $method, string $model = 'Data')
+    public static function sendResponse(bool $status, string $method, string $model = 'Data', ?string $redirect = null)
     {
         $statusRespone = $status ? 'success' : 'error';
         $statusMessage = $status ? 'Berhasil' : 'Gagal';
@@ -14,6 +14,10 @@ class ResponseHelper
             'status' => $statusRespone,
             'message' => $model . ' ' . $statusMessage . ' Di' . $method,
         ];
+
+        if(!empty($redirect)){
+            $response['redirect'] = $redirect;
+        }
 
         return response()->json($response, $code);
     }
