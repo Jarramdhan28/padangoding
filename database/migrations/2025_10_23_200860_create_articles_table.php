@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignUuid('category_id')->constrained('categories')->cascadeOnUpdate()->restrictOnDelete();
             $table->enum('status', ArticleStatus::cases());
             $table->boolean('is_publish')->default(false);
+            $table->text('comment')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
