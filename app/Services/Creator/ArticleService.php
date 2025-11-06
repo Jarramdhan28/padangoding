@@ -6,6 +6,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\support\Str;
 
 class ArticleService
@@ -93,5 +94,16 @@ class ArticleService
             DB::rollBack();
             return false;
         }
+    }
+
+    public function delete($article)
+    {
+        if($article->thumbnail){
+            if(Storage::disk('public')->exists('article/thumbnail/' . $article->thumbnail)){
+                Storage::disk('public')->delete('article/thumbnail/' . $article->thumbnail);
+            }
+        }
+
+        return $article->delete();
     }
 }

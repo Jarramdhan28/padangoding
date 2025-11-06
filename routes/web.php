@@ -42,6 +42,7 @@ Route::group(['prefix' => 'creator', 'middleware' => ['auth', 'verified', 'role:
         Route::get('/article/edit/{article:slug}', 'getArticleBySlug')->name('creator.article.getArticleBySlug');
         Route::put('/article/update/{article:slug}', 'update')->name('creator.article.update');
         Route::get('/article/detail/{article:slug}', 'detailPage')->name('creator.article.detailPage');
+        Route::delete('/article/delete/{article:slug}', 'destroy')->name('creator.article.destroy');
     });
 });
 

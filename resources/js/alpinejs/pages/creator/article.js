@@ -111,7 +111,11 @@ document.addEventListener("alpine:init", () => {
             total: 0,
             perPage: 12,
         },
-        data: {},
+        deleteArticle: {
+            data: {},
+            modal: false,
+            url: "",
+        },
 
         async initData() {
             await this.fetchArticles();
@@ -134,14 +138,22 @@ document.addEventListener("alpine:init", () => {
                 const response = await fetch(url);
                 const result = await response.json();
                 this.results = result.data;
-                console.log(this.results);
                 this.page.currentPage = result.meta.current_page;
                 this.page.lastPage = result.meta.last_page;
                 this.page.perPage = result.meta.per_page;
                 this.page.total = result.meta.total;
             } catch (error) {
-                console.log("Failed to load articles data", error);
+                console.error("Failed to load articles data", error);
             }
+        },
+
+        deleteModalOpen(data) {
+            this.deleteArticle.modal = true;
+            this.deleteArticle.data = data;
+            this.deleteArticle.url = route(
+                "creator.article.destroy",
+                data.slug
+            );
         },
     }));
 

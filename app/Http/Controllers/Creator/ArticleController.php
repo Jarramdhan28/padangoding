@@ -70,4 +70,10 @@ class ArticleController extends Controller
         }
         return view('pages.creator.article.show');
     }
+
+    public function destroy(Article $article)
+    {
+        $result = $this->articleService->delete($article);
+        return ResponseHelper::sendResponse((bool) $result, "delete", "Artikel");
+    }
 }

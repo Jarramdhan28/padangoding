@@ -20,7 +20,7 @@
                 <p class="text-center text-gray-500 text-sm mt-4" x-cloak>Article tidak ditemukan</p>
             </template>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" @creator-article.window="fetchArticles()">
                 <template x-for="article in results">
                     <div class="bg-white rounded-lg p-2 border border-gray-100 shadow-xs flex gap-3">
                         <div class="w-64">
@@ -70,7 +70,8 @@
                                             </li>
                                             <li
                                                 class="p-2 text-sm cursor-pointer hover:bg-red-50 rounded-b-lg ease-in-out duration-100 transition">
-                                                <a class="flex gap-2 items-center text-sm text-red-600">
+                                                <a @click="deleteModalOpen(article)"
+                                                    class="flex gap-2 items-center text-sm text-red-600">
                                                     <x-svg.delete class="text-red-400 size-4" />
                                                     Hapus
                                                 </a>
@@ -104,6 +105,9 @@
                     total="page.total" on-prev="fetchArticles(page.currentPage - 1)"
                     on-next="fetchArticles(page.currentPage + 1)" />
             </div>
+
+            <x-ui.modal.delete modal="deleteArticle.modal" name="deleteArticle.data.title"
+                onDelete="$delete({ url: deleteArticle.url, dispatch: 'creator-article',modalClose: 'deleteArticle.modal'})" />
         </div>
     </section>
 </x-creator-layout>
