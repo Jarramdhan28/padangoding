@@ -12,6 +12,7 @@ import "./alpinejs/auth.js";
 import "./alpinejs/pages/admin/category.js";
 import "./alpinejs/pages/admin/tag.js";
 import "./alpinejs/pages/admin/user-management.js";
+import "./alpinejs/pages/admin/article.js";
 /** Creator */
 import "./alpinejs/pages/creator/article.js";
 

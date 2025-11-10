@@ -15,11 +15,11 @@
                 </div>
             </div>
 
-            <div class="mt-4 w-full rounded-xl border border-gray-200 overflow-hidden">
+            <div class="mt-4 w-full rounded-xl border border-gray-100 overflow-hidden">
                 <div class="overflow-x-auto md:overflow-visible">
                     <table class="w-full min-w-[600px] text-sm text-left" @user-table.window="fetchResults()">
-                        <thead class="text-sm bg-gray-100 font-medium text-gray-700 whitespace-nowrap">
-                            <tr class="border-b border-gray-200">
+                        <thead class="text-sm bg-gray-50 font-medium text-gray-700 whitespace-nowrap">
+                            <tr class="border-b border-gray-100">
                                 <td class="px-4 py-2 w-3">No</td>
                                 <td class="px-6 py-2">Name</td>
                                 <td class="px-6 py-2">Username</td>
@@ -32,7 +32,7 @@
                         <tbody class="whitespace-nowrap">
                             <template x-for="(user, index) in results" :key="index">
                                 <tr
-                                    class="bg-white border-t border-gray-200 hover:bg-gray-50 transition-all ease-in-out duration-150">
+                                    class="bg-white border-t border-gray-100 hover:bg-gray-50/60 transition-all ease-in-out duration-150">
                                     <td class="px-4 py-2 text-center"
                                         x-text="(page.currentPage - 1) * page.perPage + (index + 1)">
                                     </td>

@@ -13,9 +13,10 @@
     ];
 
     $variantClass = $variants[$variant] ?? $variants['primary'];
+    $isLink = isset($href) || $attributes->has('x-bind:href');
 @endphp
 
-@isset($href)
+@if ($isLink)
     <a {{ $attributes->merge(['href' => $href, 'class' => "$baseClasses $variantClass"]) }}>
         {{ $slot }}
     </a>
@@ -23,4 +24,4 @@
     <button {{ $attributes->merge(['type' => $type, 'class' => "$baseClasses $variantClass"]) }}>
         {{ $slot }}
     </button>
-@endisset
+@endif

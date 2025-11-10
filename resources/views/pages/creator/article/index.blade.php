@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="flex items-center gap-1 justify-between w-full pe-2 mt-2">
-                                <template x-if="article.status == 'aproved'">
+                                <template x-if="article.status == 'approved'">
                                     <div class="flex items-center gap-1">
                                         <label
                                             class="relative inline-block h-4 w-8 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-green-600">

@@ -20,7 +20,15 @@ Route::get('/email/verify', function () {
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
-    return redirect('/dashboard');
+    $user = $request->user();
+
+    if($user->hasRole('admin')){
+        return to_route('admin.dashboard');
+    }if($user->hasRole('creator')){
+        return to_route('creator.dashboard');
+    }if($user->hasRole('user')){
+        return to_route('landing-page');
+    }
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {

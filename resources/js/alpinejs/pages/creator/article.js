@@ -49,6 +49,7 @@ document.addEventListener("alpine:init", () => {
                 const article = data.data;
                 this.form.data.title = article.title;
                 this.form.data.category_id = article.category.id;
+                this.form.data.description = article.description;
                 this.$nextTick(() => {
                     this.textEditor.root.innerHTML = article.content;
                 });
@@ -170,11 +171,9 @@ document.addEventListener("alpine:init", () => {
             const slug = window.location.pathname.split("/").pop();
 
             try {
-                const baseRoute = route(
-                    "creator.article.getArticleBySlug",
-                    slug
+                const response = await fetch(
+                    route("creator.article.getArticleBySlug", slug)
                 );
-                const response = await fetch(baseRoute);
                 const article = await response.json();
                 this.article = article.data;
                 this.readTime = readingTime(article.data.content, 100);

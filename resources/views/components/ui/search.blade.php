@@ -1,6 +1,6 @@
 @props([
     'placeholder' => 'Cari data...',
-    'model' => 'search',
+    'model' => '',
     'onInput' => '',
 ])
 
@@ -13,7 +13,12 @@
                     d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
         </div>
-        <input type="search" x-model.debounce.1000ms="{{ $model }}" @input="{{ $onInput }}"
+        <input type="search" x-model.debounce.1000ms="{{ $model }}"
+            @input.debounce.1000ms="
+                if ({{ $model }}.length > 2 || {{ $model }}.length === 0) {
+                    {{ $onInput }}
+                }
+            "
             class="w-full bg-transparent rounded-lg px-3 border-0 text-sm text-gray-600 placeholder:text-xs focus:outline-none focus:ring-0"
             placeholder="{{ $placeholder }}">
     </div>

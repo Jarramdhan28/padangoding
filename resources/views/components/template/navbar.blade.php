@@ -155,7 +155,7 @@
                     class="fixed inset-0 z-10 flex h-screen justify-center bg-white/30 backdrop-blur-xs">
                     <div class="relative bg-white h-max top-14 rounded-2xl border border-gray-200 w-full max-w-md m-2"
                         @click.outside="openSearch = false">
-                        <div class="border-b border-gray-100 p-4 flex gap-2 items-center">
+                        <div class="border-b border-gray-100 px-4 py-2 flex gap-2 items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                                 class="size-5 text-gray-500">
                                 <path fill-rule="evenodd"
@@ -164,7 +164,7 @@
                             </svg>
 
                             <input type="text" placeholder="Search..."
-                                class="w-full border-0 outline-0 focus:outline-0 text-sm text-gray-600">
+                                class="w-full border-0 outline-0 focus:ring-0 focus:outline-0 text-sm text-gray-600">
                         </div>
 
                         <div class="flex justify-center items-center p-4">
@@ -237,7 +237,7 @@
                     </div>
                 @else
                     <x-template.nav-link href="{{ route('login') }}"
-                        class="bg-black text-white px-4 border border-black hover:bg-gray-800 hover:text-white">
+                        class="bg-black text-white px-4 border ms-2 border-black hover:bg-gray-800 hover:text-white">
                         Masuk
                     </x-template.nav-link>
                 @endif

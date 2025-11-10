@@ -20,6 +20,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:ad
         Route::resource('tag', App\Http\Controllers\Admin\Reference\TagController::class)->except('show', 'create', 'edit');
         Route::get('/tag/get', [App\Http\Controllers\Admin\Reference\TagController::class, 'get']);
     });
+    /** Articl */
+    Route::group(['prefix' => 'article'], function(){
+        Route::get('/', [App\Http\Controllers\Admin\ArticleController::class, 'index'])->name('admin.article.index');
+        Route::get('/get', [App\Http\Controllers\Admin\ArticleController::class, 'getArticles'])->name('admin.article.getArticles');
+        Route::get('/detail/{article:slug}', [App\Http\Controllers\Admin\ArticleController::class, 'detailArticle'])->name('admin.article.detailArticle');
+        Route::get('/get-detail/{article:slug}', [App\Http\Controllers\Admin\ArticleController::class, 'getDetailArticle'])->name('admin.article.getDetailArticle');
+    });
     /** User Management */
     Route::resource('user-management', App\Http\Controllers\Admin\UserManagementController::class)->except('show', 'create', 'edit');
     Route::get('/user-management/get', [App\Http\Controllers\Admin\UserManagementController::class, 'getData'])->name('user-management.getData');
@@ -50,9 +57,5 @@ Route::group(['prefix' => 'creator', 'middleware' => ['auth', 'verified', 'role:
  *  Referensi Routes
 */
 Route::get('/reference/categories', [App\Http\Controllers\ReferenceController::class, 'categories'])->name('reference.categories');
-
-Route::get('/article', function(){
-    return true;
-})->name('article');
 
 require __DIR__.'/auth.php';
