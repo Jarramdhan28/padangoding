@@ -23,9 +23,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:ad
     /** Articl */
     Route::group(['prefix' => 'article'], function(){
         Route::get('/', [App\Http\Controllers\Admin\ArticleController::class, 'index'])->name('admin.article.index');
-        Route::get('/get', [App\Http\Controllers\Admin\ArticleController::class, 'getArticles'])->name('admin.article.getArticles');
-        Route::get('/detail/{article:slug}', [App\Http\Controllers\Admin\ArticleController::class, 'detailArticle'])->name('admin.article.detailArticle');
-        Route::get('/get-detail/{article:slug}', [App\Http\Controllers\Admin\ArticleController::class, 'getDetailArticle'])->name('admin.article.getDetailArticle');
+        Route::get('/get', [App\Http\Controllers\Admin\ArticleController::class, 'getData'])->name('admin.article.getData');
+        Route::get('/detail/{article:slug}', [App\Http\Controllers\Admin\ArticleController::class, 'detailPage'])->name('admin.article.detail');
+        Route::get('/get-detail/{article:slug}', [App\Http\Controllers\Admin\ArticleController::class, 'getDataDetails'])->name('admin.article.getDetail');
+        Route::post('/detail/update-status/{article:slug}', [App\Http\Controllers\Admin\ArticleController::class, 'statusUpdate'])->name('admin.article.updateStatus');
     });
     /** User Management */
     Route::resource('user-management', App\Http\Controllers\Admin\UserManagementController::class)->except('show', 'create', 'edit');

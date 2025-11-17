@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Article extends Model
 {
     use HasUuids;
-    protected $fillable = ['title', 'slug', 'thumbnail', 'content', 'description', 'author_id', 'category_id', 'status', 'is_publish'];
+    protected $fillable = ['title', 'slug', 'thumbnail', 'content', 'description', 'author_id', 'category_id', 'status', 'is_publish', 'comment'];
     protected $casts = [
         'status' => ArticleStatus::class,
     ];

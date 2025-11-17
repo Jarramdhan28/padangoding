@@ -41,7 +41,7 @@ document.addEventListener("alpine:init", () => {
         async fetchResults(page = 1) {
             try {
                 const response = await fetch(
-                    route("admin.article.getArticles", {
+                    route("admin.article.getData", {
                         search: this.search,
                         page: page,
                         filter: this.filterData.selected,
@@ -61,11 +61,20 @@ document.addEventListener("alpine:init", () => {
 
     Alpine.data("adminDetailArticle", () => ({
         loading: false,
+        isLoaded: false,
         article: [],
         readTime: {},
+        formStatus: {
+            commentar: "",
+            status: "",
+        },
+        errors: {},
 
         async initData() {
+            this.isLoaded = false;
             await this.fethDetailArticle();
+            this.isLoaded = true;
+            console.log(this.formStatus.commentar);
         },
 
         async fethDetailArticle() {
@@ -73,7 +82,7 @@ document.addEventListener("alpine:init", () => {
 
             try {
                 const response = await fetch(
-                    route("admin.article.getDetailArticle", slug)
+                    route("admin.article.getDetail", slug)
                 );
                 const result = await response.json();
                 this.article = result.data;

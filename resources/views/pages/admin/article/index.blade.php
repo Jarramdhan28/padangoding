@@ -69,6 +69,13 @@
                             </tr>
                         </thead>
                         <tbody class="whitespace-nowrap">
+                            <template x-if="results.length === 0">
+                                <tr>
+                                    <td colspan="7" class="px-4 py-6 text-center text-gray-500">
+                                        Tidak ada data artikel.
+                                    </td>
+                                </tr>
+                            </template>
                             <template x-for="(article, index) in results" :key="index">
                                 <tr
                                     class="bg-white border-t border-gray-100 hover:bg-gray-50/60 transition-all ease-in-out duration-150">
@@ -91,7 +98,7 @@
                                     </td>
                                     <td class="px-6 py-2" x-text="article?.author?.name"></td>
                                     <td class="px-6 py-2 text-center">
-                                        <x-ui.button x-bind:href="route('admin.article.detailArticle', article.slug)"
+                                        <x-ui.button x-bind:href="route('admin.article.detail', article.slug)"
                                             variant="outline" class="flex items-center gap-x-1 w-max">
                                             <x-svg.eye class="size-4" />
                                         </x-ui.button>

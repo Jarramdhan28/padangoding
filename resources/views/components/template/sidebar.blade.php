@@ -1,7 +1,7 @@
 <aside :class="{ 'block': openSidebar, 'hidden': !openSidebar }" x-cloak x-transition
     class="fixed top-0 left-0 z-40 w-56 md:w-60 h-screen bg-white pb-4 lg:block transition-all">
-    <div class="m-2 border border-gray-100 h-full bg-gray-50 rounded-2xl shadow-xs">
-        <div class="flex items-center gap-2 px-4 h-16 md:h-14 border-b border-gray-100">
+    <div class="m-2 h-full bg-gray-50 rounded-2xl shadow-xs">
+        <div class="flex items-center gap-x-2 px-4 h-16 md:h-14 border-b border-gray-100">
             <a href="{{ route('admin.dashboard') }}">
                 <div class="border border-gray-200 rounded-md p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

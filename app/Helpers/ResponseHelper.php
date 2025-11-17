@@ -39,7 +39,7 @@ class ResponseHelper
 
     public static function responseWithMeta(bool $status, $data = null)
     {
-        $message = $status ? 'Data ditemukan' : 'Data tidak ditemukan';
+        $message = $data->isNotEmpty() ? 'Data ditemukan' : 'Data tidak ditemukan';
         $code = $status ? 200 : 404;
         $statusRespone = $status ? 'success' : 'error';
 
@@ -60,5 +60,13 @@ class ResponseHelper
         ];
 
         return response()->json($response, $code);
+    }
+
+    public static function errorResponse($message, $code)
+    {
+        return response()->json([
+            'status' => 'error',
+            'message' => $message,
+        ], $code);
     }
 }

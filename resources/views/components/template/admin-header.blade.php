@@ -25,7 +25,7 @@
     ];
 @endphp
 
-<nav class="flex justify-between items-center h-16 md:h-14 px-4 border-b border-gray-100 md:border-0">
+<nav class="flex justify-between items-center h-16 md:h-14 my-2 px-4 border-b border-gray-50">
     <div class="text-xs w-full">
         <nav class="flex items-center gap-4 flex-wrap">
             <div class="lg:hidden">
@@ -52,13 +52,38 @@
             </ol>
         </nav>
     </div>
-    <div x-data="{ open: false }" class="relative">
-        <img src="{{ asset('assets/images/user.png') }}" alt="" class="w-8" @click="open = !open">
-        <div x-show="open" class="absolute right-0 top-10  bg-white border border-gray-100 py-4 px-4 w-40 rounded-xl"
-            @click.outside="open = false">
-            <ul>
-                <li><a href="{{ route('logout') }}">Keluar</a></li>
-            </ul>
-        </div>
+    <div class="relative">
+        <ul class="flex items-center gap-x-3">
+            <li x-data="{ openNotif: false }">
+                <button @click="openNotif = !openNotif" class="relative flex items-center p-2 rounded-xl"
+                    x-bind:class="{
+                        'bg-gray-100': openNotif,
+                        'hover:bg-gray-50': !openNotif
+                    }">
+                    <x-svg.notification class="size-7 text-gray-500" />
+                    <span class="absolute inset-0 object-right-top -mr-5">
+                        <div
+                            class="inline-flex items-center px-1 border-1 border-white rounded-full text-[10px] font-semibold leading-4 bg-red-500 text-white">
+                            6
+                        </div>
+                    </span>
+                </button>
+                <div x-show="openNotif" @click.outside="openNotif = false"
+                    class="absolute right-12 top-12 bg-white border border-gray-100 py-4 px-4 w-60 rounded-md">
+                    ikan bre
+                </div>
+            </li>
+            <li x-data="{ openProfile: false }">
+                <img src="{{ asset('assets/images/user.png') }}" alt="" class="w-10"
+                    @click="openProfile = !openProfile">
+                <div x-show="openProfile"
+                    class="absolute right-0 top-10  bg-white border border-gray-100 py-4 px-4 w-40 rounded-xl"
+                    @click.outside="openProfile = false">
+                    <ul>
+                        <li><a href="{{ route('logout') }}">Keluar</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
     </div>
 </nav>
