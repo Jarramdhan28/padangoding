@@ -13,8 +13,11 @@ import "./alpinejs/pages/admin/category.js";
 import "./alpinejs/pages/admin/tag.js";
 import "./alpinejs/pages/admin/user-management.js";
 import "./alpinejs/pages/admin/article.js";
+/** Notification */
+import "./alpinejs/pages/admin/notification.js";
 /** Creator */
 import "./alpinejs/pages/creator/article.js";
+import "./alpinejs/pages/creator/profile.js";
 
 /** Add import alpine component */
 Alpine.plugin(collapse);

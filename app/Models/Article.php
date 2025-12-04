@@ -7,10 +7,11 @@ use App\Models\Reference\Category;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Notifications\Notifiable;
 
 class Article extends Model
 {
-    use HasUuids;
+    use HasUuids, Notifiable;
     protected $fillable = ['title', 'slug', 'thumbnail', 'content', 'description', 'author_id', 'category_id', 'status', 'is_publish', 'comment'];
     protected $casts = [
         'status' => ArticleStatus::class,

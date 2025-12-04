@@ -5,7 +5,7 @@
     @slot('title', $title)
 </x-html.head>
 
-<body class="font-mona">
+<body class="font-mona bg-gray-50/90" x-data x-cloak>
     <x-template.creator-navbar />
     {{ $slot }}
     <x-html.script />

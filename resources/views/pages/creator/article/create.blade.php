@@ -2,7 +2,7 @@
     @slot('title', 'Dashboard')
 
     <section class="mt-20 mb-20 mx-auto max-w-screen-md px-4">
-        <div x-data="articleCreate" x-init="initdata()">
+        <div x-data="articleCreate" x-init="initdata()" x-cloak>
             <x-ui.back />
             <div class="mb-4">
                 <p class="text-gray-500 text-xs">Creator Dashboard</p>
@@ -78,20 +78,15 @@
                         <x-ui.form.error x-text="errors.content" />
                     </div>
                     <div class="flex justify-end items-center gap-2">
-                        <x-ui.button @click="form.data.status = 'draft'"
-                            class="bg-white disabled:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                            variant="outline" x-bind:disabled="loading">
-                            <p x-show="!loading">Simpan Draft</p>
-                            <div x-show="loading" class="w-[89px] flex justify-center items-center">
+                        <x-ui.button type="submit" @click="form.data.status = 'draft'" variant="outline"
+                            class="w-32">
+                            <span x-show="!loading">Simpan Draft</span>
+                            <span x-show="loading" class="flex items-center justify-center gap-x-1" x-cloak>
                                 <x-ui.form.loader />
-                            </div>
+                            </span>
                         </x-ui.button>
-                        <x-ui.button @click="form.data.status = 'review'" variant="primary" x-bind:disabled="loading"
-                            class="disabled:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed">
-                            <p x-show="!loading">Kirim</p>
-                            <div x-show="loading" class="w-9 flex justify-center items-center">
-                                <x-ui.form.loader />
-                            </div>
+                        <x-ui.button type="submit" @click="form.data.status = 'review'" variant="primary">
+                            <p>Kirim</p>
                         </x-ui.button>
                     </div>
                 </form>

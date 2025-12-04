@@ -20,7 +20,7 @@
                 </h2>
             </div>
             <div class="flex justify-center mt-4">
-                <x-ui.button variant="primary">
+                <x-ui.button href="#" variant="primary">
                     Jelajahi Sekarang
                 </x-ui.button>
             </div>

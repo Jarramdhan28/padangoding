@@ -11,6 +11,12 @@ Route::get('/', [App\Http\Controllers\Guest\LandingPageController::class, 'index
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:admin']], function (){
     /** Dashboard */
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+    /** Notification */
+    Route::controller(App\Http\Controllers\Admin\NotificationController::class)->group(function(){
+        Route::get('/notifications', 'getNotofications')->name('admin.notifications');
+        Route::post('/notifications/mark-as-read/{notificationId}', 'markAsRead')->name('admin.notifications.markAsRead');
+        Route::delete('/notifications/delete/{notificationId}', 'destroy')->name('admin.notifications.destroy');
+    });
     /** Referensi */
     Route::group(['prefix' => 'referensi'], function (){
         /** Category */
@@ -39,7 +45,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified', 'role:ad
 Route::group(['prefix' => 'creator', 'middleware' => ['auth', 'verified', 'role:creator']], function (){
     /** Dashboard */
     Route::get('/dashboard', [App\Http\Controllers\Creator\DashboardController::class, 'index'])->name('creator.dashboard');
-
+    /** Profile */
+    Route::controller(App\Http\Controllers\Creator\ProfileController::class)->group(function(){
+        Route::get('/profile', 'index')->name('creator.profile.index');
+        Route::get('/get-profile', 'getData')->name('creator.profile.getData');
+        Route::get('/profile/pengaturan', 'accountSettings')->name('creator.profile.accountSettings');
+        Route::put('/profile/update', 'update')->name('creator.profile.update');
+        Route::post('/profile/upload', 'uploadProfile')->name('creator.profile.uploadProfile');
+    });
     /** Article */
     Route::controller(App\Http\Controllers\Creator\ArticleController::class)->group(function(){
         Route::get('/article', 'index')->name('creator.article.index');

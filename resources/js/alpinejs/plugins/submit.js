@@ -19,6 +19,7 @@ export default function (Alpine) {
             modalClose = null,
             dispatch = null,
             redirect = null,
+            toast = true,
         }) {
             this.loading = true;
             try {
@@ -77,10 +78,12 @@ export default function (Alpine) {
                     }
                 } else {
                     this.errors = {};
-                    this.$toast(
-                        result.message || "Berhasil!",
-                        result.status || "success"
-                    );
+                    if (toast === true) {
+                        this.$toast(
+                            result.message || "Berhasil!",
+                            result.status || "success"
+                        );
+                    }
 
                     if (result.redirect !== undefined) {
                         setTimeout(() => {

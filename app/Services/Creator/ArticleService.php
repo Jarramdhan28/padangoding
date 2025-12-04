@@ -3,9 +3,13 @@
 namespace App\Services\Creator;
 
 use App\Models\Article;
+use App\Models\User;
+use App\Notifications\ArticleForReview;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\support\Str;
 
@@ -29,7 +33,7 @@ class ArticleService
                 $thumbnail->storeAs('article/thumbnail', $fileThumbnail, 'public');
             }
 
-            Article::create([
+            $article = Article::create([
                 'slug' => $slug,
                 'thumbnail' => $fileThumbnail,
                 'title' => $data['title'],
@@ -40,6 +44,11 @@ class ArticleService
                 'status' => $data['status'],
                 'is_publish' => false,
             ]);
+
+            if($data['status'] === 'review'){
+                $adminUser = User::role('admin')->get();
+                Notification::send($adminUser, new ArticleForReview($article));
+            }
 
             DB::commit();
             return true;
@@ -88,10 +97,16 @@ class ArticleService
                 'is_publish' => false,
             ]);
 
+            if($data['status'] === 'review'){
+                $adminUser = User::role('admin')->get();
+                Notification::send($adminUser, new ArticleForReview($article));
+            }
+
             DB::commit();
             return true;
         } catch(\Throwable $th){
             DB::rollBack();
+            Log::info($th->getMessage());
             return false;
         }
     }

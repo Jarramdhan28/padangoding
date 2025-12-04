@@ -7,7 +7,7 @@
             <h1 class="text-2xl font-semibold">Artikel Saya</h1>
         </div>
 
-        <div x-data="articleHandler()" x-init="initData()">
+        <div x-data="articleHandler()" x-init="initData()" x-cloak>
             <div class="mb-6">
                 <div class="flex justify-end">
                     <div class="w-52">
@@ -20,7 +20,8 @@
                 <p class="text-center text-gray-500 text-sm mt-4" x-cloak>Article tidak ditemukan</p>
             </template>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" @creator-article.window="fetchArticles()">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" @creator-article.window="fetchArticles()"
+                x-cloak>
                 <template x-for="article in results">
                     <div class="bg-white rounded-lg p-2 border border-gray-100 shadow-xs flex gap-3">
                         <div class="w-64">

@@ -25,7 +25,7 @@
     ];
 @endphp
 
-<nav class="flex justify-between items-center h-16 md:h-14 my-2 px-4 border-b border-gray-50">
+<nav class="flex justify-between items-center h-16 md:h-14 my-2 px-4 border-b border-gray-50" x-data x-cloak>
     <div class="text-xs w-full">
         <nav class="flex items-center gap-4 flex-wrap">
             <div class="lg:hidden">
@@ -53,31 +53,84 @@
         </nav>
     </div>
     <div class="relative">
-        <ul class="flex items-center gap-x-3">
-            <li x-data="{ openNotif: false }">
+        <ul class="flex items-center gap-x-2">
+            <li x-data="adminNotification" x-init="initData()">
                 <button @click="openNotif = !openNotif" class="relative flex items-center p-2 rounded-xl"
                     x-bind:class="{
                         'bg-gray-100': openNotif,
                         'hover:bg-gray-50': !openNotif
                     }">
                     <x-svg.notification class="size-7 text-gray-500" />
-                    <span class="absolute inset-0 object-right-top -mr-5">
+                    <span class="absolute inset-0 object-right-top ml-5">
                         <div
                             class="inline-flex items-center px-1 border-1 border-white rounded-full text-[10px] font-semibold leading-4 bg-red-500 text-white">
-                            6
+                            <span x-text="unreadCount"></span>
                         </div>
                     </span>
                 </button>
                 <div x-show="openNotif" @click.outside="openNotif = false"
-                    class="absolute right-12 top-12 bg-white border border-gray-100 py-4 px-4 w-60 rounded-md">
-                    ikan bre
+                    class="absolute right-12 top-14 bg-white border border-gray-100 w-80 rounded-md z-50">
+                    <div class="flex items-center justify-between border-b border-gray-100 py-3 px-4">
+                        <h1 class="font-medium">Notification</h1>
+                        <button @click="$dispatch('update-notifications')"
+                            class="rounded-lg hover:bg-gray-50 p-1.5 transition-colors ease-in-out duration-200">
+                            <x-svg.refresh class="size-5 text-gray-500" />
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <template x-if="notifications.length === 0">
+                            <div class="p-4 text-center text-sm text-gray-500">
+                                Tidak ada notifikasi
+                            </div>
+                        </template>
+                        <template x-for="notif in notifications" :key="notif.id"
+                            @update-notifications.window="fetchNotifications()">
+                            <div class="relative px-4 py-2 flex items-center gap-x-2 rounded-lg m-1 cursor-pointer transition-colors ease-in-out duration-200"
+                                x-bind:class="{
+                                    'bg-white hover:bg-gray-100/50': notif.read_at,
+                                    'bg-gray-100/60 hover:bg-gray-100/70': !notif.read_at
+                                }">
+                                <template x-if="!notif.read_at">
+                                    <span
+                                        class="absolute left-5 top-4 w-1.5 h-1.5 bg-red-600 rounded-full ring-2 ring-white"></span>
+                                </template>
+                                <button
+                                    @click="$delete({
+                                        url: route('admin.notifications.destroy', notif.id),
+                                        dispatch: 'update-notifications',
+                                        toast: false
+                                    })"
+                                    class="absolute right-1 top-1 hover:bg-red-100 p-1 rounded-md transition-colors ease-in-out duration-200">
+                                    <x-svg.delete class="size-4 text-red-300" />
+                                </button>
+                                <img src="{{ asset('assets/images/user.png') }}" alt=""
+                                    class="w-10 rounded-full ">
+                                <div
+                                    @click="$submit({
+                                        url: route('admin.notifications.markAsRead', notif.id),
+                                        method: 'POST',
+                                        dispatch: 'update-notifications',
+                                        toast: false,
+                                    })">
+                                    <h2 class="text-sm mb-0.5">
+                                        <span class="font-semibold hover:underline" x-text="notif.data.author"></span>,
+                                        <span class="text-gray-500" x-text="notif.data.message"></span>
+                                    </h2>
+                                    <p class="text-xs text-gray-400" x-text="$timeAgoFormat(notif.created_at)">2 jam
+                                        yang lalu</p>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </li>
             <li x-data="{ openProfile: false }">
-                <img src="{{ asset('assets/images/user.png') }}" alt="" class="w-10"
-                    @click="openProfile = !openProfile">
+                <button @click="openProfile = !openProfile">
+                    <img src="{{ asset('assets/images/user.png') }}" alt=""
+                        class="w-16 md:w-11 rounded-full cursor-pointer">
+                </button>
                 <div x-show="openProfile"
-                    class="absolute right-0 top-10  bg-white border border-gray-100 py-4 px-4 w-40 rounded-xl"
+                    class="absolute right-0 top-14 bg-white border border-gray-100 py-4 px-4 w-48 rounded-xl z-50"
                     @click.outside="openProfile = false">
                     <ul>
                         <li><a href="{{ route('logout') }}">Keluar</a></li>

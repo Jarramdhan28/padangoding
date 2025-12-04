@@ -3,16 +3,15 @@
     'variant' => 'primary',
     'type' => 'submit',
     'size' => 'md',
-    'loadingText' => 'Loading..',
 ])
 
 @php
     $baseClasses =
-        'focus:outline-none rounded-lg focus:z-10 focus:ring-4 transition disabled:opacity-50 disabled:cursor-not-allowed';
+        'focus:outline-none rounded-md focus:z-10 focus:ring-4 transition disabled:opacity-50 disabled:cursor-not-allowed';
     $variants = [
         'primary' => 'bg-black text-white border border-black hover:bg-gray-800',
         'outline' => 'border border-gray-300 hover:bg-gray-100 hover:text-gray-600 focus:ring-gray-100',
-        'danger' => 'bg-red-600 border border-red-600 text-white rounded-lg hover:bg-red-700',
+        'danger' => 'bg-red-600 border border-red-600 text-white hover:bg-red-700',
     ];
     $sizes = [
         'sm' => 'px-2.5 py-1.5 text-xs',
@@ -30,10 +29,6 @@
     </a>
 @else
     <button {{ $attributes->merge(['type' => $type, 'class' => "$baseClasses $sizeClass $variantClass"]) }}>
-        <p x-show="!loading">{{ $slot }}</p>
-        <div x-show="loading" class="flex justify-center items-center gap-x-1">
-            <x-ui.form.loader />
-            {{ $loadingText }}
-        </div>
+        {{ $slot }}
     </button>
 @endif

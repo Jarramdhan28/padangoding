@@ -1,4 +1,5 @@
 const setNestedProperty = (obj, path, value) => {
+    if (!path || typeof path !== "string") return false;
     const parts = path.split(".");
     const last = parts.pop();
     const context = parts.reduce((acc, part) => acc && acc[part], obj);
@@ -15,7 +16,8 @@ export default function (Alpine) {
         return async function ({
             url,
             dispatch = "table",
-            modalClose = "deleteData.modal",
+            modalClose = null,
+            toast = true,
         }) {
             this.loading = true;
             try {
@@ -35,14 +37,19 @@ export default function (Alpine) {
                 if (!response.ok) {
                     this.$toast(result.message || "Validasi gagal", "error");
                 } else {
-                    this.$toast(
-                        result.message || "Berhasil!",
-                        result.status || "success"
-                    );
+                    if (toast === true) {
+                        this.$toast(
+                            result.message || "Berhasil!",
+                            result.status || "success"
+                        );
+                    }
 
-                    setNestedProperty(this, modalClose, false);
-                    if (this[modalClose] !== undefined) {
-                        this[modalClose] = false;
+                    if (modalClose) {
+                        setNestedProperty(this, modalClose, false);
+
+                        if (this[modalClose] !== undefined) {
+                            this[modalClose] = false;
+                        }
                     }
 
                     if (this.$dispatch) {
